@@ -28,7 +28,7 @@ for i in range( 1, k+1):
         row = 1
     height = math.floor(i/30.00001)+1
     print(a,row,height)
-
+    #Hier den Pfad anpassen, unbedingt auch die Dateiendung .IGS anfügen!
     item = RDK.Item('blocks').AddFile(r'C:\Users\Simon Bienz\Documents\Fabian\HSLU\HS20\AROB\Testat 1\AS6_Vorlage\block.IGS')
     item.setPose(transl(0+(i-(a-1)*15)*30, 65+(row-1)*120, 7.75+(height-1)*7.75)*rotz(pi/2))
     item.setName('block'+str(i))
