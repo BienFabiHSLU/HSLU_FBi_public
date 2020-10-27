@@ -1,0 +1,36 @@
+from robolink import *    # RoboDK API
+from robodk import *      # Robot toolbox
+RDK = Robolink()
+
+r_robot = RDK.Item('Staubli TX40')
+tl_tool = RDK.Item('LWS_VakuumGreifer_11')
+
+f_world = RDK.Item('world', ITEM_TYPE_FRAME)
+f_pick = RDK.Item('blocks', ITEM_TYPE_FRAME)
+f_place = RDK.Item('tower', ITEM_TYPE_FRAME)
+
+#t_home = RDK.Item('home')
+t_ippick = RDK.Item('Ip_pick')
+t_ipplace = RDK.Item('Ip_place')
+
+#Loading blocks
+USER_INP = robodk.mbox("Enter the number of blocks", b1='OK', b2='Cancel', frame=True, t=False, entry=str) #Einlesen der Anzahl Blocks als CONSTANT
+
+i = 1
+k=int(USER_INP)
+row = 0
+
+for i in range( 1, k+1):
+    a = math.floor(i/15.00001)+1
+    if (a%2)==0:
+        row = 2
+    else:
+        row = 1
+    height = math.floor(i/30.00001)+1
+    print(a,row,height)
+
+    item = RDK.Item('blocks').AddFile(r'C:\Users\Simon Bienz\Documents\Fabian\HSLU\HS20\AROB\Testat 1\AS6_Vorlage\block.IGS')
+    item.setPose(transl(0+(i-(a-1)*15)*30, 65+(row-1)*120, 7.75+(height-1)*7.75)*rotz(pi/2))
+    item.setName('block'+str(i))
+    item.Recolor([0, 1, 0, 1])
+    i = i+1
