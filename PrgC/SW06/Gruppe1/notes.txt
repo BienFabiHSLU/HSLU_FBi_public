@@ -1,0 +1,64 @@
+timeStamp is: 1588809554250
+pressureVal is: 9120281
+systemState is: 7
+alarmState is: 0
+
+	Wed May 06 2020 23:59:14
+	7 binär heisst: 0111
+		Pump 2 = 0
+		Pump 1 = 1
+		Outlet Valve = 1
+		Inlet Valve = 1
+
+	0 binär heisst: 0000
+		0 = nominal
+	
+timeStamp is: 1588809641500
+pressureVal is: 9130261
+systemState is: 13
+alarmState is: 0
+
+	Thu May 07 2020 00:00:41
+	13 in binär heisst: 1101
+		Pump 2 = 1
+		Pump 1 = 1
+		Outlet Valve = 0
+		Inlet Valve = 1
+		
+	Ab jetzt steigt der Druck an.
+	
+timeStamp is: 1588809722500
+pressureVal is: 10001305
+systemState is: 13
+alarmState is: 1
+
+	Thu May 07 2020 00:02:02
+	p = 100 bar
+	1 binär heisst: 0001
+		1 = warning
+	
+timeStamp is: 1588809902250
+pressureVal is: 18006627
+systemState is: 13
+alarmState is: 2
+
+	Thu May 07 2020 00:05:02
+	p = 180 bar
+	2 binär heisst: 0010
+		2 = severe
+	
+timeStamp is: 1588810038500
+pressureVal is: 33250580
+systemState is: 13
+alarmState is: 2
+
+	Thu May 07 2020 00:07:18
+	p_max = 333 bar
+	
+timeStamp is: 10
+pressureVal is: 33250580
+systemState is: 13
+alarmState is: 2
+	
+	bleibender Wert
+
