@@ -103,7 +103,7 @@ for i in range (1,6):
     ##Gesamtwinkel berechnen
     alphaRadImuDrive=np.arccos(np.cos(np.radians(driveRollX))*np.cos(np.radians(drivePitchY)))
     alphaDegImuDrive=np.degrees(alphaRadImuDrive)
-    #print(alphaDegImuDrive)
+    print(alphaDegImuDrive)
     
     #Verlauf plotten    
     plt.plot(alphaDegImuDrive)
@@ -126,6 +126,17 @@ for i in range (1,6):
     #Obere Anz. m Messwerte aussortieren
     trimAlphaDegImuDrive=trimAlphaDegImuDrive[: len(trimAlphaDegImuDrive)-int(m)]
        
+    print(trimAlphaDegImuDrive)
+    #Verlauf plotten    
+    plt.plot(trimAlphaDegImuDrive)
+    plt.title("Neigungswinkel: " +placeNumber+"_"+str(i)+"_"+"Drive")
+    #plt.axis([0,len(alphaDegImuDrive),0,3.5])
+    plt.xlabel('Index')
+
+    plt.ylabel('Neigungswinkel alpha [°]')    
+    plt.savefig("plots/Trim_Neigungswinkel: " +placeNumber+"_"+str(i)+"_"+"Drive.png")
+    plt.show()
+    
     
     ##Statistische Grössen
     
@@ -180,15 +191,21 @@ for i in range (1,6):
     plt.close()
     #plt.show()
     
+    """   
+    df2=pd.DataFrame({'Data'})
+    df2=df2.append(df)
+    print(df2)
+    """
       
     v=1.42 ##[km/h]
     
 
 csvfile.close()
 csvfile2.close()
-    
-    
-  
-
+ 
+"""    
+df2.plot(kind="box", title="PLatz " +placeNumber)   
+plt.show()
+"""
     
     
