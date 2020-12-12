@@ -91,15 +91,15 @@ for i in range (1,2):
     ##Gesamtwinkel berechnen
     alphaRadImuDrive=np.arccos(np.cos(np.radians(driveRollX))*np.cos(np.radians(drivePitchY)))
     alphaDegImuDrive=np.degrees(alphaRadImuDrive)
-    #print(alphaDegImuDrive)
+    print(alphaDegImuDrive)
     
     #Verlauf plotten    
     plt.plot(alphaDegImuDrive)
-    plt.title("Neigungswinkel: IMU_only_Drive")
+    plt.title("Neigungswinkel: 31_6_Drive")
     #plt.axis([0,len(alphaDegImuDrive),0,3.5])
     plt.xlabel('Index')
     plt.ylabel('Neigungswinkel alpha [°]')    
-    plt.savefig("plots/Neigungswinkel: IMU_only_Drive")
+    plt.savefig("plots/Neigungswinkel: 31_6_Drive")
     plt.show()
   
     
@@ -114,6 +114,17 @@ for i in range (1,2):
     #Obere Anz. m Messwerte aussortieren
     trimAlphaDegImuDrive=trimAlphaDegImuDrive[: len(trimAlphaDegImuDrive)-int(m)]
        
+    print(trimAlphaDegImuDrive)
+    
+    #Getrimmter Verlauf plotten    
+    plt.plot(trimAlphaDegImuDrive)
+    plt.title("Neigungswinkel: 31_6_Drive")
+    #plt.axis([0,len(alphaDegImuDrive),0,3.5])
+    plt.xlabel('Index')
+    plt.ylabel('Neigungswinkel alpha [°]')    
+    plt.savefig("plots/Trim_Neigungswinkel: 31_6_Drive")
+    #plt.show()
+    
     
     ##Statistische Grössen
     
@@ -132,7 +143,7 @@ for i in range (1,2):
     print("Min[alpha]=" + str(mini))
     
     #Ausreisser Rausschreiben (outliers)
-    label="IMU_only_Drive" 
+    label="Neigungswinkel: 31_6_Drive"
     df = pd.DataFrame({'Data':trimAlphaDegImuDrive})
     outliers = df[np.abs(df.Data-df.Data.mean()) > (3*df.Data.std())]
     print("Ausreisser: " +str(outliers))
@@ -150,7 +161,7 @@ for i in range (1,2):
     
     #Boxplot
     df.columns = [label]
-    titleBoxplot = "Boxplot: " +label
+    titleBoxplot = "Boxplot: " +label 
     df.plot(kind="box", title=titleBoxplot)
     plt.ylabel('Neigungswinkel alpha [°]')
     plt.savefig("plots/Boxplot: "+label)
@@ -160,13 +171,14 @@ for i in range (1,2):
        
     #Histogramm
     #Fausregel sqrt(n-Observationen)
-    trimAlphaDegImuDrive.plot(kind="hist", edgecolor="black", bins=int(np.sqrt(len(trimAlphaDegImuDrive))))
+    df.plot(kind="hist", edgecolor="black", bins=int(np.sqrt(len(trimAlphaDegImuDrive))))
     plt.title("Histogramm: " +label)     
     plt.xlabel("Neigungswinkel alpha [°]")
     plt.ylabel("Anz. Messwerte")
     plt.savefig("plots/Histogramm: " +label)
     plt.close()
     #plt.show()
+    
     
       
     v=1.42 ##[km/h]

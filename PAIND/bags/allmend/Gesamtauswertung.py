@@ -24,7 +24,10 @@ baseFolderPath = input()
 print ("Place Number")
 placeNumber = input()
 
-for i in range (1,6):
+#Leeres DataFrame für den gesamten Boxplot
+df2=pd.DataFrame()
+
+for i in range (1,5):
         
     #Einlesen Start
     leicaPosBottomStart = pd.read_csv(baseFolderPath+"/LEICA_"+placeNumber+"_"+str(i)+"_start_u.bag.txt")
@@ -55,50 +58,7 @@ for i in range (1,6):
 
     driveAngle=np.array([driveRollX, drivePitchY, driveYawZ])
     print(driveAngle)
-    
-    
-    #Statistische Grössen
-    """
-    ##Einzel-Winkel
-    #np.std(driveAngle, axis=1)
-    print("Stadardabweichung[RollX,PitchY,YawZ]= " + str(np.std(driveAngle, axis=1)))
-    #np.median(driveAngle,axis=1)
-    print("Median[RollX,PitchY,YawZ]= " + str(np.median(driveAngle,axis=1)))
-    #np.mean(driveAngle,axis=1)
-    print("Mittelwert[RollX,PitchY,YawZ]= " + str(np.mean(driveAngle,axis=1)))
-    
-    
-    #Boxplot
-    #print(len(rollx))
-    #print(len(rollx400))
-    titleBoxplot = "Boxplot von" + fileNameImuAngleDrive "Roll X"
-    driveRollX.plot(kind="box", title=titleBoxplot)
-    
-    titleBoxplot = "Boxplot von" + fileNameImuAngleDrive "Pitch Y"
-    drivePitchY.plot(kind="box", title=titleBoxplot)
-    
-    
-    #Entspircht Max Ausschlag in positive Drehrichtung
-    #np.max(driveAngle, axis=1)
-    print("Max[RollX,PitchY,YawZ]=" + str(np.max(driveAngle, axis=1)))
-    #Entspircht Max Ausschlag in negative Drehrichtung
-    #np.min(driveAngle, axis=1)
-    print("Min[RollX,PitchY,YawZ]=" + str(np.min(driveAngle, axis=1)))
-    
-    #Histogramm
-    #Fausregel sqrt(n-Observationen)
-    driveRollX.plot(kind="hist", edgecolor="black", bins=20)
-    plt.title("Histogramm: " +placeNumber"Drive "+i)     
-    plt.xlabel("Winkel um x-Achse (Roll)")
-    plt.ylabel("Anz. Messwerte")
-    plt.show()
-    
-    drivePitchY.plot(kind="hist", edgecolor="black", bins=20)
-    plt.title("Histogramm: " +placeNumber"Drive "+i)     
-    plt.xlabel("Winkel um y-Achse (Pitch)")
-    plt.ylabel("Anz. Messwerte")
-    plt.show()
-    """
+      
     
     ##Gesamtwinkel berechnen
     alphaRadImuDrive=np.arccos(np.cos(np.radians(driveRollX))*np.cos(np.radians(drivePitchY)))
@@ -127,15 +87,15 @@ for i in range (1,6):
     trimAlphaDegImuDrive=trimAlphaDegImuDrive[: len(trimAlphaDegImuDrive)-int(m)]
        
     print(trimAlphaDegImuDrive)
-    #Verlauf plotten    
+    
+    #Getrimmter Verlauf plotten    
     plt.plot(trimAlphaDegImuDrive)
     plt.title("Neigungswinkel: " +placeNumber+"_"+str(i)+"_"+"Drive")
     #plt.axis([0,len(alphaDegImuDrive),0,3.5])
     plt.xlabel('Index')
-
     plt.ylabel('Neigungswinkel alpha [°]')    
     plt.savefig("plots/Trim_Neigungswinkel: " +placeNumber+"_"+str(i)+"_"+"Drive.png")
-    plt.show()
+    #plt.show()
     
     
     ##Statistische Grössen
@@ -191,11 +151,10 @@ for i in range (1,6):
     plt.close()
     #plt.show()
     
-    """   
-    df2=pd.DataFrame({'Data'})
+    #DataFrames aus for Loop schreiben
     df2=df2.append(df)
     print(df2)
-    """
+    
       
     v=1.42 ##[km/h]
     
@@ -203,9 +162,11 @@ for i in range (1,6):
 csvfile.close()
 csvfile2.close()
  
-"""    
-df2.plot(kind="box", title="PLatz " +placeNumber)   
+#Boxplot über alles
+df2.plot(kind="box", title="Boxplot: Drive_Platz_" +placeNumber)   
+plt.ylabel('Neigungswinkel alpha [°]')
+plt.savefig("plots/Boxplot: Drive_Platz_" +placeNumber)
 plt.show()
-"""
+plt.close()
     
     
